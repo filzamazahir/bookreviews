@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Book Reviews | Home</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="h2">Welcome, {{loggedin_user['name']}}</span>
+                    <span class="pull-right"><a href="/books/new">Add Book and Review</a> | <a href="/users/logoff">LogOff</a></span>
+                </div>
+
+                <div class="col-md-7">
+                    <h3>Recent Book Reviews Here</h3>
+
+                    {%for review in reviews %}
+                    <h4><a href="/books/{{review['bookid']}}">{{review['title']}}</a></h4>
+                    <p>Rating: {{review['rating']}}</p>
+                    <p><a href="/users/{{review['userid']}}">{{review['alias']}}</a> says: {{review['content']}}</p>
+                    {%if review['userid'] == session['userid']%}
+                            <p><a href="/books/delete/{{review['bookid']}}/{{review['reviewid']}}">Delete</a></p>
+                        {%endif%}
+                    <p>Posted on {{review['created_at']}}</p>
+
+                    {%endfor%}
+
+                </div>
+
+                <div class="col-md-5">
+                    <h3>Other Books with Reviews</h3>
+
+                    {%for book in books_with_reviews %}
+                    <p><a href="/books/{{book['bookid']}}">{{book['title']}}</a></p>
+                    {%endfor%}
+
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>
