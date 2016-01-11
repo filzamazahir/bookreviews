@@ -8,16 +8,18 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
         <script type="text/javasctipt">
-            $(document).ready(function () {
+            $(document).ready(function() {
+                console.log("in jquery section");
 
                 $("#registration_form").hide();
 
 
-                // $('#register').click(function() {
-                //     $('#login_form').hide();
-                //     $('#registration_form').show();
+                $('#register').click(function() {
+                    console.log('Not registered link clicked');
+                    $('#login_form').hide();
+                    $('#registration_form').show();
 
-                // });
+                });
             }); 
         </script>
 
@@ -65,7 +67,7 @@
                 </div>
 
 
-<!--                 <div id="registration_form" class="col-md-4 col-md-offset-4">
+                <div id="registration_form" class="col-md-4 col-md-offset-4">
                     <h3>Not a user yet? Register here!</h3>
 
                     <form action="/users/register" method='POST'>
@@ -144,7 +146,7 @@
                     {%endif%}
                     {%endwith%}
 
-                </div> -->
+                </div>
             </div>
 
         </div>

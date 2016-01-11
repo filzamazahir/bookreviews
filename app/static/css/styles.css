@@ -19,7 +19,8 @@ a.hover {
 }
 
 #login_page {
-    background-image: url('../img/books.jpg')
+    background-image: url('../img/books.jpg');
+    /*Image Source: http://7-themes.com/7035826-books-bokeh.html*/
 }
 
 #topmargin {

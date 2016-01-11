@@ -8,8 +8,23 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
         <script type="text/javasctipt">
-            $(document).ready(function () {
+            $(document).ready(function() {
+                console.log("in jquery");
 
+                $('#title_list').change(function () {
+                    console.log("option changing");
+                    var title = $('option:selected', this).val();
+                    if title != "Add New" {
+                        $('#new_title').hide();
+                        $('#new_author').hide();
+                    }
+
+                    if title == "Add New" {
+                        $('#new_title').show();
+                        $('#new_author').show();
+                    }
+
+                });
                 
             }); 
         </script>
@@ -51,7 +66,7 @@
                                 <label>Book Title:</label>
 
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label for="title_list">Choose Book from the list:</label>
+                                    <label for="title">Choose Book from the list:</label>
                                     <select name="title_list" id="title_list" class="form-control">
                                         <option>Add New</option>
                                         {%for book in books %}
