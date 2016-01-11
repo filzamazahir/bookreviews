@@ -38,9 +38,9 @@ class Books(Controller):
     #form submitted to route ['/books/create']
     def create_book_review(self):
         book_review = {
-            # 'title_list': request.form['title_list'],
+            'title_list': request.form['title_list'],
             'new_title': request.form ['new_title'],
-            # 'author_list': request.form['author_list'],
+            'author_list': request.form['author_list'],
             'new_author': request.form['new_author'],
             'review_content': request.form['review'],
             'review_rating':request.form['rating'],

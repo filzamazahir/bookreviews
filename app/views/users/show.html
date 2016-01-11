@@ -30,25 +30,22 @@
             </div>
         </nav>
 
-        <div class="container">
+        <div class="container" id="topmargin">
             <div class="row">
                 <div class="col-md-12">
-                    
-                
-
                 <h3>User Alias: {{user['alias']}}</h3>
-                <p>Name: {{user['name']}}</p>
-                <p>Email: {{user['email']}}</p>
-                <p>Total Reviews: {{count}}</p><br><br>
+                <p><strong>Name:</strong> {{user['name']}}</p>
+                <p><strong>Email:</strong> {{user['email']}}</p>
+                <p><strong>Total Reviews:</strong> {{count}}</p><br>
 
-                <h4>Posted Reviews on the following books: </h4>
+                <h4>Books reviewed by {{user['alias']}}</h4>
                 </div>
-                <div class="col-md-11 col-md-offset-1">
-
+                <div class="col-md-3">
+                    <div class="section">
                     {% for book in books_reviewed %}
                     <p><a href="/books/{{book['bookid']}}">{{book['title']}}</a><p> 
-
                     {%endfor%}
+                    </p>
 
                 </div>
 

@@ -7,20 +7,29 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-        <script type="text/javasctipt">
+        <script type="text/javascript">
             $(document).ready(function() {
-                console.log("in jquery");
 
                 $('#title_list').change(function () {
-                    console.log("option changing");
                     var title = $('option:selected', this).val();
-                    if title != "Add New" {
+                    if (title != "Add New") {
                         $('#new_title').hide();
-                        $('#new_author').hide();
+                        $('.author').hide();
+                    }
+                    if (title == "Add New") {
+                        $('#new_title').show();
+                        $('#author_list').val("Add New");
+                        $('.author').show();
                     }
 
-                    if title == "Add New" {
-                        $('#new_title').show();
+                });
+
+                $('#author_list').change(function () {
+                    var author = $('option:selected', this).val();
+                    if (author != "Add New") {
+                        $('#new_author').hide();
+                    }
+                    if (author == "Add New") {
                         $('#new_author').show();
                     }
 
@@ -58,7 +67,7 @@
                 </div>
         
  
-                <div class="col-md-8">
+                <div class="col-md-6 col-md-offset-3">
                     <div class="section" id="form_section">
                         <form action ="/books/create", method='POST'>
 
@@ -66,33 +75,28 @@
                                 <label>Book Title:</label>
 
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label for="title">Choose Book from the list:</label>
                                     <select name="title_list" id="title_list" class="form-control">
-                                        <option>Add New</option>
+                                        <option value="Add New">Add New</option>
                                         {%for book in books %}
                                         <option>{{book['title']}}</option>
                                         {%endfor %}
                                     </select>
 
-                                    <label for="new_title">OR Add a new book:</label>
-                                    <input type="text" name="new_title" id="new_title" class="form-control">
+                                    <input type="text" name="new_title" id="new_title" placeholder="New Book Title" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Author:</label>
+                                <label class="author">Author:</label>
 
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label for="author_list">Choose Author from the list:</label>
-                                    <select name="author_list" id="author_list" class="form-control">
-                                        <option>Add New</option>
+                                    <select name="author_list" id="author_list" class="form-control author">
+                                        <option value="Add New">Add New</option>
                                         {%for author in authors %}
                                         <option>{{author['name']}}</option>
                                         {%endfor %}
                                     </select>
-
-                                    <label for="new_author">OR Add a new author:</label>
-                                    <input type="text" name="new_author" id="new_author" class="form-control">
+                                    <input type="text" name="new_author" id="new_author" placeholder="New Author" class="form-control author">
                                 </div>
                             </div>
 
@@ -127,15 +131,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <h4>Books with Reviews</h4>
-                    <div class="section">
-                        {%for book in books_with_reviews %}
-                        <p><a href="/books/{{book['bookid']}}">{{book['title']}}</a></p>
-                        {%endfor%}
-                    </div>
-
-                </div>
+                
 
 
             </div>
