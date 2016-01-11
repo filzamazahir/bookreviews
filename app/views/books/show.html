@@ -8,35 +8,58 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </head>
 
-    <body>
-        <div class="container">
+    <body class="books_page">
+
+        <nav class="navbar navbar-default navbar-fixed-top" id="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/books">Book Reviews</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/users/logoff">Logoff</a></li>
+                  </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container" id="topmargin">
             <div class="row">
                 <div class="col-md-12">
-                    <span class="h2">{{book_author['title']}}</span>
-                    <span class="pull-right"><a href="/books">Home</a> | <a href="/users/logoff">LogOff</a></span>
+                    <h3>{{book_author['title']}} by {{book_author['author']}}</h3>
+                    
                 </div>
-                <h3>Author: {{book_author['author']}}</h3>
+                
 
                 <div class="col-md-7">
-                    <h3>Reviews</h3>
+                    <h4>Reviews</h4>
 
                     {%for review in reviews %}
+                    <div class="section">
                         <p>Rating: {{review['rating']}}</p>
                         <p><a href="/users/{{review['userid']}}">{{review['alias']}}</a> says: {{review['content']}}</p>
 
                         {%if review['userid'] == session['userid']%}
                             <p><a href="/books/delete/{{review['bookid']}}/{{review['reviewid']}}">Delete</a></p>
                         {%endif%}
-                        <p>Posted on {{review['created_at']}}</p>
-
+                        <span class="pull-right"><p><em>Posted on {{review['created_at'].strftime("%b %d, %Y at %I:%M %p")}}</em></p></span>
+                    </div>
                     {%endfor%}
 
                 </div>
 
                 <div class="col-md-5">
+                    <h4>Add Review</h4>
+                    <div class="section" id="form_section">
                     <form action = "/books/create_review/{{book_author['bookid']}}", method='POST'>
                         <div class="form-group">
-                            <label for="review">Add a review:</label>
+                            
                             <textarea name="review" id="review" class="form-control" rows ="4"></textarea>
                         </div>
 
@@ -52,7 +75,7 @@
                             <label>stars</label>
                         </div>
 
-                        <button class="btn btn-primary pull-right" type="submit">Add Review</button>
+                        <button class="btn btn-default pull-right" type="submit">Add Review</button>
 
                         {%with errors = get_flashed_messages() %}
                         {%if errors %}
@@ -63,7 +86,7 @@
                         {%endwith%}
 
                     </form>
-
+                    </div>
                 </div>
 
             </div>

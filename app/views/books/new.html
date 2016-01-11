@@ -6,82 +6,120 @@
         <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+        <script type="text/javasctipt">
+            $(document).ready(function () {
+
+                
+            }); 
+        </script>
+
     </head>
 
-    <body>
+    <body class="books_page">
+        <nav class="navbar navbar-default navbar-fixed-top" id="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/books">Book Reviews</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/users/logoff">Logoff</a></li>
+                  </ul>
+                </div>
+            </div>
+        </nav>
+
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <span class="pull-right"><a href="/books">Home</a> | <a href="/users/logoff">LogOff</a></span>
+                    <h3>Add a New Book Title and Review</h3>
                 </div>
         
-                <h3>Add a New Book Title and Review</h3>
-                <div class="col-md-6">
-                    <form action ="/books/create", method='POST'>
+ 
+                <div class="col-md-8">
+                    <div class="section" id="form_section">
+                        <form action ="/books/create", method='POST'>
 
-                        <div class="form-group">
-                            <label>Book Title:</label>
+                            <div class="form-group">
+                                <label>Book Title:</label>
 
-                            <div class="col-md-11 col-md-offset-1">
-                                <label for="title_list">Choose Book from the list:</label>
-                                <select name="title_list" id="title_list" class="form-control">
-                                    <option>None-Add New</option>
-                                    {%for book in books %}
-                                    <option>{{book['title']}}</option>
-                                    {%endfor %}
-                                </select>
+                                <div class="col-md-11 col-md-offset-1">
+                                    <label for="title_list">Choose Book from the list:</label>
+                                    <select name="title_list" id="title_list" class="form-control">
+                                        <option>Add New</option>
+                                        {%for book in books %}
+                                        <option>{{book['title']}}</option>
+                                        {%endfor %}
+                                    </select>
 
-                                <label for="new_title">OR Add a new book:</label>
-                                <input type="text" name="new_title" id="new_title" class="form-control">
+                                    <label for="new_title">OR Add a new book:</label>
+                                    <input type="text" name="new_title" id="new_title" class="form-control">
+                                </div>
                             </div>
-                        </div>
 
+                            <div class="form-group">
+                                <label>Author:</label>
 
-                        <div class="form-group">
-                            <label>Author:</label>
+                                <div class="col-md-11 col-md-offset-1">
+                                    <label for="author_list">Choose Author from the list:</label>
+                                    <select name="author_list" id="author_list" class="form-control">
+                                        <option>Add New</option>
+                                        {%for author in authors %}
+                                        <option>{{author['name']}}</option>
+                                        {%endfor %}
+                                    </select>
 
-                            <div class="col-md-11 col-md-offset-1">
-                                <label for="author_list">Choose Author from the list:</label>
-                                <select name="author_list" id="author_list" class="form-control">
-                                    <option>None-Add New</option>
-                                    {%for author in authors %}
-                                    <option>{{author['name']}}</option>
-                                    {%endfor %}
-                                </select>
-
-                                <label for="new_author">OR Add a new author:</label>
-                                <input type="text" name="new_author" id="new_author" class="form-control">
+                                    <label for="new_author">OR Add a new author:</label>
+                                    <input type="text" name="new_author" id="new_author" class="form-control">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="review">Review:</label>
-                            <textarea name="review" id="review" class="form-control" rows ="4"></textarea>
-                        </div>
+                            <div class="form-group">
+                                <label for="review">Review:</label>
+                                <textarea name="review" id="review" class="form-control" rows ="4"></textarea>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="rating">Rating:</label>
-                            <select name="rating" id="rating">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                            <label>stars</label>
-                        </div>
+                            <div class="form-group">
+                                <label for="rating">Rating:</label>
+                                <select name="rating" id="rating">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                                <label>stars</label>
+                            </div>
 
-                        <button class="btn btn-primary pull-right" type="submit">Add Book and Review</button>
+                            <button class="btn btn-default pull-right" type="submit">Add Book and Review</button>
 
-                        {%with errors = get_flashed_messages() %}
-                        {%if errors %}
-                            {%for error in errors %}
-                            <p class="error bottom error">{{error}}</p><br>
-                            {%endfor%}
-                        {%endif%}
-                        {%endwith%}
+                            {%with errors = get_flashed_messages() %}
+                            {%if errors %}
+                                {%for error in errors %}
+                                <p class="error bottom error">{{error}}</p><br>
+                                {%endfor%}
+                            {%endif%}
+                            {%endwith%}
 
-                    </form>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h4>Books with Reviews</h4>
+                    <div class="section">
+                        {%for book in books_with_reviews %}
+                        <p><a href="/books/{{book['bookid']}}">{{book['title']}}</a></p>
+                        {%endfor%}
+                    </div>
+
                 </div>
 
 

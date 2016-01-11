@@ -57,9 +57,9 @@ class Book(Model):
     #Add a book and a review, including add the author if he/she doesn't exist in db
     def add_new_book_and_review(self, book_review, loggedin_userid):
         new_title = book_review['new_title']
-        title_list = book_review['title_list']
+        # title_list = book_review['title_list']
         new_author = book_review['new_author']
-        author_list = book_review ['author_list']
+        # author_list = book_review ['author_list']
         review_content = book_review['review_content']
         rating = book_review['review_rating']
         title = ""
@@ -68,31 +68,35 @@ class Book(Model):
         error = False
         new_book_added = False
         new_author_added = False
-
         
-        if title_list == 'None-Add New':
-            title = new_title
-            new_book_added = True
+        # if title_list == 'None-Add New':
+        title = new_title
+        new_book_added = True
+        # else:
+        #     title = title_list
 
-        if author_list == 'None-Add New':
-            author = new_author
-            new_author_added = True
-
+        # if author_list == 'None-Add New':
+        author = new_author
+        new_author_added = True
+        # else:
+        #     author = author_list
 
         #Validate the new book and review
+        book_check = self.db.query_db("SELECT * FROM books WHERE title = %s", [title])
+        if len(book_check)> 0 and new_book_added == True:
+            error_list.append ("Book already exists in database. Please select from the right menu to add review")
+            error = True
+            
         if len(title) == 0 or len(author)==0 or len(review_content) == 0:
             error_list.append ("All fields must be entered")
             error = True
 
-        book = self.db.query_db("SELECT * FROM books WHERE title = %s", [title])
-        if len(book)> 0 and new_book_added == True:
-            error_list.append ("Book already exists in database. Please select from drop down")
-            error = True
+        
 
-        author = self.db.query_db("SELECT * FROM authors WHERE name = %s", [author])
-        if len(author) >0 and new_author_added == True:
-            error_list.append("Author already exists in database. Please select from drop down")
-            error = True
+        # author_check = self.db.query_db("SELECT * FROM authors WHERE name = %s", [author])
+        # if len(author_check) >0 and new_author_added == True:
+        #     error_list.append("Author already exists in database. Please select from drop down")
+        #     error = True
 
         #Return at this point if there are any errors
         if error == True:
@@ -100,6 +104,8 @@ class Book(Model):
 
         #Add the author if its a new one and get the author id
         author_data = [author]
+        print author
+        print author_data
         if new_author_added == True:
             insert_author_query = "INSERT INTO authors (name, created_at, updated_at) VALUES (%s, NOW(), NOW())"
             self.db.query_db(insert_author_query, author_data)
@@ -116,7 +122,7 @@ class Book(Model):
             self.db.query_db(insert_book_query, book_data)
 
         #Get book id of last book just added
-        bookid_col = self.db.query_db("SELECT id FROM books WHERE title = %s", title)
+        bookid_col = self.db.query_db("SELECT id FROM books WHERE title = %s", [title])
         bookid = bookid_col[0]['id']
 
         #Add the review
