@@ -9,16 +9,17 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                console.log("in jquery section");
-
+                $("#login_form").show();
                 $("#registration_form").hide();
 
-
                 $("#register").click(function() {
-                    console.log('Not registered link clicked');
                     $("#login_form").hide();
                     $("#registration_form").show();
+                });
 
+                $("#login").click(function() {
+                    $("#login_form").show();
+                    $("#registration_form").hide();
                 });
             }); 
         </script>
@@ -27,14 +28,12 @@
     <body id="login_page">
     
         <div class="container">
-            
-            
-  
-    
+
             <div class="row">
+                <h1 class="text-center">Book Reviews</h1>
                 <div id="login_form" class="col-md-4 col-md-offset-4">
-                <h1>Book Reviews</h1>
-                    <h3>Login here!</h3>
+                
+                    
 
                     <form action="/users/login" method='POST'>
 
@@ -54,8 +53,9 @@
                             <!-- <label for="password">Password:</label> -->
                             <input type="password" name="password" id="password" placeholder = "Password" class="form-control">
                         </div>
-                        <!-- <a id="register" href="">Not Registered? Register Here!</a> -->
+                        
                         <button type="submit" class="btn btn-default pull-right">Login</button>
+                        <a id="register" href="#">Not Registered? Register Here!</a>
                     </form>
                     {%with errors = get_flashed_messages(category_filter=["login"]) %}
                     {% if errors %}
@@ -65,11 +65,12 @@
                     {%endif%}
                     {%endwith%}
                 </div>
-                <a id="register" href="">Not Registered? Register Here!</a>
+                
+                
 
 
                 <div id="registration_form" class="col-md-4 col-md-offset-4">
-                    <h3>Not a user yet? Register here!</h3>
+                    <h3  class="text-center">Register</h3>
 
                     <form action="/users/register" method='POST'>
 
@@ -137,6 +138,7 @@
                         {%endwith%}
 
                         <button type="submit" class="btn btn-default pull-right">Register</button>
+                        <a id="login" href="#">Already Registered? Login here!</a>
                     </form>
 
                     {%with errors = get_flashed_messages(category_filter=["register"]) %}
