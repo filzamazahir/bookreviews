@@ -16,7 +16,7 @@ git clone https://github.com/filzamazahir/bookreviews.git
 3) 
 cd into the project and source the setup file
 ```
-cd Pylot
+cd bookreviews
 . setup
 ```
 
